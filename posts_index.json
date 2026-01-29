@@ -1,12 +1,31 @@
 [
   {
+    "id": "2026-01-29-发布脚本的测试",
+    "title": "发布脚本的测试",
+    "date": "2026年1月29日",
+    "readTime": "1分钟阅读",
+    "mood": "思考",
+    "tags": [
+      "生活",
+      "随笔"
+    ],
+    "summary": "捣鼓中。"
+  },
+  {
     "id": "2024-05-20-hello-world",
     "title": "Hello World！我的小站开张了",
     "date": "2024年5月20日",
     "readTime": "2分钟阅读",
     "mood": "期待",
-    "tags": ["建站", "日常"],
+    "tags": [
+      "建站",
+      "日常"
+    ],
     "summary": "终于把这个属于自己的小角落搭建起来了...",
-    "keywords": ["博客", "GitHub Pages", "静态网站"]
+    "keywords": [
+      "博客",
+      "GitHub Pages",
+      "静态网站"
+    ]
   }
 ]

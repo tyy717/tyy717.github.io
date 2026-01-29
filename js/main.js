@@ -3,46 +3,56 @@
 document.getElementById('current-year') && (document.getElementById('current-year').textContent = new Date().getFullYear());
 
 // 日志数据所在的文件夹路径
+const POSTS_INDEX_URL = 'posts_index.json';
 const POSTS_DIR = 'posts/';
 
 // 主函数：在首页加载时列出所有日志
 async function loadAllPosts() {
     const postsListEl = document.getElementById('posts-list');
-    if (!postsListEl) return; // 如果不是首页，则退出
+    if (!postsListEl) return;
 
     try {
-        // 注意：在实际部署时，你需要一个文件列表接口。
-        // 此处为演示，我们假设已知日志文件名，或通过其他方式获取列表。
-        // 示例：手动维护一个日志列表数组。
-        const postFiles = [
-            '2024-05-20-hello-world.json',
-            // 你可以在这里添加更多的日志文件名
-        ];
+        // === 新增调试代码开始 ===
+        console.log('🔍 [Main.js] 函数开始执行，正在获取文章列表...');
+        // === 新增调试代码结束 ===
 
-        if (postFiles.length === 0) {
+        const indexResp = await fetch(POSTS_INDEX_URL);
+        if (!indexResp.ok) throw new Error('无法加载日志列表');
+        const postsIndex = await indexResp.json();
+
+        // === 新增调试代码：查看获取到的数据 ===
+        console.log('✅ [Main.js] 成功获取到文章索引数据：', postsIndex);
+        console.log('📊 [Main.js] 文章数量：', postsIndex.length);
+        // === 新增调试代码结束 ===
+
+        if (postsIndex.length === 0) {
             postsListEl.innerHTML = '<p class="no-posts">还没有日志，快去创建第一篇吧！</p>';
             return;
         }
 
         let postsHTML = '';
-        for (const filename of postFiles) {
-            const resp = await fetch(POSTS_DIR + filename);
-            if (!resp.ok) continue;
-            const post = await resp.json();
+        // 按日期倒序排列，最新的在前
+        postsIndex.sort((a, b) => new Date(b.id) - new Date(a.id));
 
+        for (const postMeta of postsIndex) {
             postsHTML += `
-                <div class="post-card" onclick="window.location.href='post.html?id=${filename.replace('.json', '')}'">
-                    <h3 class="post-title">${post.title}</h3>
-                    <span class="post-date"><i class="far fa-calendar"></i> ${post.date} • <i class="far fa-clock"></i> ${post.readTime}</span>
-                    <p class="post-summary">${post.summary}</p>
+                <div class="post-card" onclick="window.location.href='post.html?id=${postMeta.id}'">
+                    <h3 class="post-title">${postMeta.title}</h3>
+                    <span class="post-date"><i class="far fa-calendar"></i> ${postMeta.date} • <i class="far fa-clock"></i> ${postMeta.readTime}</span>
+                    <p class="post-summary">${postMeta.summary}</p>
                     <a class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
                 </div>
             `;
         }
+
+        // === 新增调试代码：查看生成的HTML ===
+        console.log('🛠️ [Main.js] 生成的HTML代码片段（前200字符）：', postsHTML.substring(0, 200));
+        // === 新增调试代码结束 ===
+
         postsListEl.innerHTML = postsHTML;
 
     } catch (error) {
-        console.error('加载日志列表失败:', error);
+        console.error('❌ [Main.js] 加载日志列表失败:', error);
         postsListEl.innerHTML = '<p class="error">加载日志时出错，请稍后重试。</p>';
     }
 }
