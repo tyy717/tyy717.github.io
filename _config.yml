@@ -1,0 +1,4 @@
+# 禁用所有Jekyll处理
+safe: true
+theme: null
+plugins: []
