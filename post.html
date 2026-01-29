@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日志详情 - 我的日常手记</title>
+        <!-- ===== 预加载关键资源 ===== -->
+        <!-- 1. 预加载CSS样式文件 -->
+        <link rel="preload" href="css/style.css" as="style">
+        <link rel="preload" href="css/dark-mode.css" as="style">
+        
+        <!-- 2. 预加载JavaScript核心文件 -->
+        <link rel="preload" href="js/main.js" as="script">
+        <link rel="preload" href="js/progress.js" as="script">
+        
+        <!-- 3. 预加载字体图标 -->
+        <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" crossorigin="anonymous">
+        
+        <!-- 4. 预连接外部域名 -->
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+        
+        <!-- ===== 原有的CSS链接 ===== -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/dark-mode.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <h1><a href="index.html" style="color: inherit; text-decoration: none;">
+                    <i class="fas fa-feather-alt"></i> 我的日常手记
+                </a></h1>
+                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> 返回首页</a>
+            </div>
+            
+            <!-- 在 post.html 中添加搜索框 -->
+            <div class="search-container">
+                <div class="search-box-wrapper">
+                    <input type="text" 
+                           id="search-input" 
+                           class="search-box" 
+                           placeholder="搜索日志..."
+                           aria-label="搜索日志">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="search-results" id="search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <article id="post-content">
+            <!-- 单篇日志的内容将由JavaScript动态生成在这里 -->
+            <p class="loading"><i class="fas fa-spinner fa-spin"></i> 正在加载日志...</p>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="current-year"></span> 我的日常手记</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // 这个页面专门用于显示单篇日志
+        const postId = new URLSearchParams(window.location.search).get('id');
+        if (postId) {
+            loadSinglePost(postId);
+        } else {
+            document.getElementById('post-content').innerHTML = '<p class="error">未指定日志。</p>';
+        }
+    </script>
+</body>
+</html>

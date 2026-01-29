@@ -1,0 +1,423 @@
+/* css/style.css */
+:root {
+    --primary-color: #6a8caf; /* 主色调（可更改） */
+    --secondary-color: #a7bcb9;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding-bottom: 60px; /* 为footer留出空间 */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 头部样式 */
+header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+.back-link {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+.back-link:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* 介绍区域 */
+.intro {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-bottom: 3rem;
+    text-align: center;
+}
+.social-link {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* 日志列表和卡片 */
+.posts-container {
+    margin-bottom: 3rem;
+}
+.posts-container h2 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+.post-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 1.8rem;
+    margin-bottom: 1.8rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border-left: 4px solid var(--primary-color);
+}
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+.post-title {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 0.8rem;
+}
+.post-date {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+.post-summary {
+    color: #555;
+    margin-bottom: 1.2rem;
+}
+.read-more {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+}
+.read-more i {
+    margin-left: 5px;
+    transition: transform 0.3s;
+}
+.post-card:hover .read-more i {
+    transform: translateX(5px);
+}
+
+/* 单篇日志文章样式 */
+article#post-content {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+article h1 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+article .post-meta {
+    color: #777;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+article .post-body {
+    font-size: 1.1rem;
+}
+article .post-body p {
+    margin-bottom: 1.5rem;
+}
+article .post-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    display: block;
+}
+
+/* 加载和错误状态 */
+.loading, .error, .no-posts {
+    text-align: center;
+    padding: 3rem;
+    color: #888;
+}
+
+/* 页脚 */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: #777;
+    border-top: 1px solid #eee;
+    margin-top: 3rem;
+}
+
+/* 1. 主题切换按钮 */
+.theme-switcher {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s;
+}
+
+.theme-switcher:hover {
+    transform: scale(1.1);
+}
+
+/* 2. 阅读进度条 */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    z-index: 9999;
+    transition: width 0.2s ease;
+}
+
+/* 3. 搜索框样式 */
+/* ===== 搜索框样式 ===== */
+.search-container {
+    margin: 2rem auto 1rem;
+    max-width: 600px;
+    position: relative;
+}
+
+.search-box-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-box {
+    width: 100%;
+    padding: 12px 20px 12px 45px;
+    border: 2px solid var(--primary-color);
+    border-radius: 30px;
+    font-size: 1rem;
+    outline: none;
+    background: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-box:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(106, 140, 175, 0.3);
+    transform: translateY(-2px);
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* 搜索提示 */
+.search-hint {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 8px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+/* 搜索结果容器 */
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-top: 10px;
+    display: none;
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* 搜索结果项 */
+.search-result-item {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.2s;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: rgba(106, 140, 175, 0.1);
+    padding-left: 1.8rem;
+}
+
+.search-result-item h4 {
+    margin: 0 0 5px 0;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.search-snippet {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+.search-meta {
+    font-size: 0.8rem;
+    color: #888;
+    display: block;
+    margin-top: 5px;
+}
+
+/* 无结果状态 */
+.no-results {
+    padding: 2rem;
+    text-align: center;
+    color: #888;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .search-container {
+        margin: 1.5rem auto 1rem;
+    }
+    
+    .search-box {
+        padding: 10px 15px 10px 40px;
+        font-size: 0.95rem;
+    }
+    
+    .search-icon {
+        left: 15px;
+        font-size: 1rem;
+    }
+}
+
+/* post.html 的头部布局调整 */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-top h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .header-top h1 {
+        font-size: 1.8rem;
+    }
+    
+    .back-link {
+        align-self: center;
+    }
+}
+
+/* 4. 标签系统 */
+.post-tags {
+    margin: 1rem 0;
+}
+
+.tag {
+    display: inline-block;
+    background: rgba(var(--primary-color), 0.1);
+    color: var(--primary-color);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.tag:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* 5. 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 6. 打印优化 */
+@media print {
+    .theme-switcher,
+    .reading-progress,
+    .search-container {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .post-card {
+        break-inside: avoid;
+    }
+}
